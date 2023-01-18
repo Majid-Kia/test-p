@@ -13,8 +13,9 @@
     "build": "gatsby build",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "pretty": "prettier --write ."
-
+    "pretty": "prettier --write .",
+    "prepare": "husky install",
+    "configure-husky": "npx husky install && npx husky add .husky/pre-commit \"npx --no-install lint-staged\""
   },
   "dependencies": {
     "gatsby": "^5.4.0",
@@ -35,9 +36,21 @@
     "eslint-plugin-react": "^7.32.1",
     "eslint-plugin-react-hooks": "^4.6.0",
     "gatsby-plugin-sass": "^6.4.0",
-
+    "husky": "^8.0.3",
+    "lint-staged": "^13.1.0",
     "prettier": "^2.8.3",
     "sass": "^1.57.1"
+  },
+  "lint-staged": {
+    "**/*.{js,jsx}": [
+      "eslint . --fix",
+      "prettier --write ."
+    ],
+    "**/*.{scss}": "prettier --write ."
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   }
-
 }
